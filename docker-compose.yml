@@ -1,0 +1,23 @@
+services:
+
+  knotapi:
+    container_name: knotapi
+    build: .
+    volumes:
+      - ./knotapi:/var/www/html
+    ports:
+      - 9020:80
+  mysqldbknotapi:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mysqldbknotapi
+    ports:
+    - 3330:3306
+  
+  phpmyadminmonitor:
+    image: phpmyadmin:latest
+    ports:
+      - 9025:80
+    environment:
+      - PMA_ARBITRARY=1
