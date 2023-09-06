@@ -10,7 +10,7 @@ services:
   mysqldbknotapi:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: knotapi@2023@
       MYSQL_DATABASE: mysqldbknotapi
     ports:
     - 3330:3306
