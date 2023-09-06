@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('card_switchers', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
             $table->integer('card_id');
             $table->integer('merchant_id');
             $table->integer('status');

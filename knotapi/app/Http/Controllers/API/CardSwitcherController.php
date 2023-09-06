@@ -51,30 +51,29 @@ class CardSwitcherController extends Controller
       *)
       **/
     public function gettasks(Request $request){
-        $userId = $request->user_id;
 
-        $task = CardSwitcher::where('user_id', $userId)->where('status', 1)->with('card:id,card_number','merchant:id,name')->get();
+      $user_id = $request->user_id;
+      $tasks = CardSwitcher::whereHas('card', function ($query) use ($user_id) {
+        $query->where('user_id', $user_id);
+        })
+        ->where('status', 1)
+        ->with(['merchant:id,name', 'card:id,card_number'])
+        ->latest()
+        ->get();
 
-     
-        $data = json_decode($task, true);
+        // Organize tasks by merchant
+        $tasksByMerchant = $tasks->groupBy('merchant_id');
 
-        $filteredData = [];
+        // Extract the latest task for each merchant
+        $latestTasks = $tasksByMerchant->map(function ($tasks) {
+            return $tasks->first();
+        });
+
         
-        foreach ($data as $item) {
-            $filteredData[] = [
-                'card_number' => $item['card']['card_number'],
-                'merchant_name' => $item['merchant']['name'],
-            ];
-        }
-        
-        // Convert $filteredData to JSON
-        $jsonResult = json_encode($filteredData, JSON_PRETTY_PRINT);
-        
-        // Output the JSON data
-        return $jsonResult;
-        
-        
-            
+
+        return response()->json(['latest_tasks' => $latestTasks]);
+              
+              
         
       }
          /**
@@ -90,8 +89,7 @@ class CardSwitcherController extends Controller
       *            mediaType="multipart/form-data",
       *            @OA\Schema(
       *               type="object",
-      *               required={"user_id","card_id","merchant_id","status"},
-      *               @OA\Property(property="user_id", type="integer"),
+      *               required={"card_id","merchant_id","status"},
       *               @OA\Property(property="card_id", type="integer"),
       *               @OA\Property(property="merchant_id", type="integer"),
       *               @OA\Property(property="status", type="integer")

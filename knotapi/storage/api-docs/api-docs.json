@@ -5,7 +5,7 @@
         "version": "3.0.0"
     },
     "paths": {
-        "/api/register User": {
+        "/api/register": {
             "post": {
                 "tags": [
                     "Register User"
@@ -146,11 +146,15 @@
                         "multipart/form-data": {
                             "schema": {
                                 "required": [
+                                    "user_id",
                                     "card_number",
                                     "card_expiry_date",
                                     "card_cvv"
                                 ],
                                 "properties": {
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
                                     "card_number": {
                                         "type": "integer"
                                     },
@@ -264,15 +268,11 @@
                         "multipart/form-data": {
                             "schema": {
                                 "required": [
-                                    "user_id",
                                     "card_id",
                                     "merchant_id",
                                     "status"
                                 ],
                                 "properties": {
-                                    "user_id": {
-                                        "type": "integer"
-                                    },
                                     "card_id": {
                                         "type": "integer"
                                     },
@@ -365,13 +365,13 @@
                             "schema": {
                                 "required": [
                                     "name",
-                                    "website_url"
+                                    "website"
                                 ],
                                 "properties": {
                                     "name": {
                                         "type": "string"
                                     },
-                                    "website_url": {
+                                    "website": {
                                         "type": "string"
                                     }
                                 },

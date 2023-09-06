@@ -20,7 +20,8 @@ class CardController extends Controller
      *            mediaType="multipart/form-data",
      *            @OA\Schema(
      *               type="object",
-     *               required={"card_number","card_expiry_date", "card_cvv"},
+     *               required={"user_id","card_number","card_expiry_date", "card_cvv"},
+     *               @OA\Property(property="user_id", type="integer"),
      *               @OA\Property(property="card_number", type="integer"),
      *               @OA\Property(property="card_expiry_date", type="string", pattern = "yyyy-MM-dd", example = "5-9-2023"),
      *               @OA\Property(property="card_cvv", type="integer")
@@ -55,6 +56,7 @@ class CardController extends Controller
 
      public function store(Request $request){
         $validated = $request->validate([
+            'user_id' => 'required',
             'card_number' => 'required|numeric|unique:cards',
             'card_expiry_date' => 'required',
             'card_cvv' => 'required|numeric|unique:cards',

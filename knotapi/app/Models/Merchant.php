@@ -11,11 +11,11 @@ class Merchant extends Model
     protected $table = 'merchants';
     protected $fillable = [
         'name', 
-        'website_url'
+        'website'
     ];  
 
-    public function cardswitcher()
+        public function cardSwitcherTasks()
     {
-        return $this->hasMany(CardSwitcher::class, 'merchant_id');
+        return $this->hasMany(CardSwitcherTask::class);
     }
 }

@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->integer('card_number')->unique();
             $table->string('card_expiry_date');
-            $table->integer('card_cvv')->unique();;
+            $table->integer('card_cvv')->unique();
             $table->timestamps();
         });
     }

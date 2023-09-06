@@ -13,11 +13,15 @@ class Card extends Model
     protected $fillable = [
         'card_number', 
         'card_expiry_date', 
-        'card_cvv'
+        'card_cvv',
+        'user_id'
     ];  
-
-    public function cardswitcher()
+    public function user()
     {
-        return $this->hasMany(CardSwitcher::class, 'card_id');
+        return $this->belongsTo(User::class);
+    }
+    public function cardSwitcherTasks()
+    {
+        return $this->hasMany(CardSwitcherTask::class);
     }
 }

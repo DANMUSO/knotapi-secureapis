@@ -41,7 +41,7 @@ class MerchantController extends Controller
      **/
 
      public function index(){
-       $merchants = Merchant::select('id','name','website_url')->get();
+       $merchants = Merchant::select('id','name','website')->get();
         return response()->json([
             'merchants' => $merchants
             ]);
@@ -60,9 +60,9 @@ class MerchantController extends Controller
      *            mediaType="multipart/form-data",
      *            @OA\Schema(
      *               type="object",
-     *               required={"name","website_url"},
+     *               required={"name","website"},
      *               @OA\Property(property="name", type="string"),
-     *               @OA\Property(property="website_url", type="string")
+     *               @OA\Property(property="website", type="string")
      *            ),
      *        ),
      *    ),
@@ -95,7 +95,7 @@ class MerchantController extends Controller
      public function store(Request $request){
         $validated = $request->validate([
             'name' => 'required|string|unique:merchants',
-            'website_url' => 'required|string|unique:merchants',
+            'website' => 'required|string|unique:merchants',
             
         ]);
         $data = $request->all();
