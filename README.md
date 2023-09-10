@@ -47,6 +47,8 @@ Bearer <TOKEN>
 
 After successfully setting the token, you will have the capability to access and utilize the other available endpoints. 
 
+In the Task Model there is status parameter that use binaries 1 , 0. 1 present completed task while 0 present uncompleted task.
+
 To access the database for this project, please use the provided database connection information and credentials
 Link: http://3.94.140.108:9025/
 Server: mysqldbknotapi
